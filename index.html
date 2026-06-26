@@ -1,469 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>For You ❤️</title>
 
-<meta charset="UTF-8">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+body{
+  overflow:hidden;
+  background:black;
+  color:white;
+}
 
-<title>For My Pikachuuuuuu ❤️</title>
+/* ---------- CANVAS LAYERS ---------- */
+#fxCanvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
 
-<link rel="stylesheet" href="style.css">
+/* ---------- SCENES ---------- */
+.scene{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  pointer-events:none;
+  transition:1.5s ease;
+  z-index:2;
+  padding:20px;
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+.scene.active{
+  opacity:1;
+  pointer-events:auto;
+}
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+/* ---------- GLASS CARD ---------- */
+.glass{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:20px;
+  padding:20px;
+  width:90%;
+  max-width:420px;
+}
 
+/* ---------- TEXT ---------- */
+h1,h2{
+  font-weight:600;
+}
+
+.glow{
+  font-size:1.6rem;
+  text-shadow:0 0 20px pink;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1); opacity:0.8}
+  50%{transform:scale(1.05); opacity:1}
+}
+
+/* ---------- BUTTONS ---------- */
+button{
+  margin-top:15px;
+  padding:12px 18px;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  font-weight:500;
+  cursor:pointer;
+  background:linear-gradient(45deg,#ff4d6d,#ffb3c1);
+  color:white;
+  box-shadow:0 10px 25px rgba(255,0,100,0.3);
+}
+
+button:active{
+  transform:scale(0.95);
+}
+
+/* ---------- GIFT ---------- */
+.gift{
+  font-size:90px;
+  animation:float 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 20px pink);
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+
+/* ---------- SLIDER ---------- */
+.slider{
+  width:95%;
+  height:70vh;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.2);
+  transition:2s ease;
+  filter:brightness(0.8);
+}
+
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* ---------- LETTER ---------- */
+.letter{
+  font-size:15px;
+  line-height:1.6;
+  white-space:pre-line;
+  text-align:left;
+}
+
+/* ---------- RING ---------- */
+.ring{
+  font-size:90px;
+  animation:spin 3s linear infinite;
+  filter:drop-shadow(0 0 15px gold);
+}
+
+@keyframes spin{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(360deg)}
+}
+
+/* ---------- NO BUTTON ---------- */
+#noBtn{
+  position:relative;
+}
+
+/* ---------- HEART POP ---------- */
+.heart{
+  position:absolute;
+  font-size:18px;
+  animation:rise 4s linear forwards;
+}
+
+@keyframes rise{
+  to{
+    transform:translateY(-800px);
+    opacity:0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<!-- Floating Hearts -->
+<canvas id="fxCanvas"></canvas>
 
-<div id="heart-container"></div>
-
-<!-- Background -->
-
-<div class="background-stars"></div>
-
-<!-- Music Button -->
-
-<div class="music">
-
-<button id="musicBtn">
-
-<i class="fa-solid fa-music"></i>
-
-Play Music
-
-</button>
-
+<!-- SCENE 1 -->
+<div class="scene active" id="s1">
+  <div class="glass">
+    <div class="glow">Hey Pikachuuuu ❤️</div>
+    <p style="margin-top:10px;">Someone loves you more than words can explain...</p>
+    <button onclick="go(2)">Open Gift 🎁</button>
+  </div>
 </div>
 
-<!-- Horizontal Container -->
-
-<div class="container">
-
-<!-- ================= PAGE 1 ================= -->
-
-<section class="page page1">
-
-<div class="gift-area">
-
-<h2 class="small-title">
-
-A Special Gift
-
-</h2>
-
-<h1>
-
-For My Beautiful
-
-</h1>
-
-<h1 class="pink">
-
-Pikachuuuuuu ❤️
-
-</h1>
-
-<div id="giftBox" class="gift-box">
-
-<div class="gift-lid"></div>
-
-<div class="gift-body"></div>
-
-<div class="gift-ribbon-v"></div>
-
-<div class="gift-ribbon-h"></div>
-
+<!-- SCENE 2 -->
+<div class="scene" id="s2">
+  <div class="gift">🎁</div>
+  <button onclick="openGift()">Tap to Open</button>
 </div>
 
-<div id="welcome" class="hidden">
-
-<h1>
-
-Hi My Love ❤️
-
-</h1>
-
-<h2>
-
-Pikachuuuuuu
-
-</h2>
-
-<p>
-
-This little website is made only for you...
-
-Please keep scrolling →
-
-</p>
-
+<!-- SCENE 3 -->
+<div class="scene" id="s3">
+  <div class="slider">
+    <div class="slide active" style="background-image:url('assets/photo.1.jpeg')"></div>   
+    <div class="slide" style="background-image:url('assets/photo.2.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.3.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.4.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.5.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.6.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.7.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.8.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.9.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo.10.jpeg')"></div>
+    
+  </div>
 </div>
 
+<!-- SCENE 4 -->
+<div class="scene" id="s4">
+  <div class="glass letter" id="letter"></div>
 </div>
 
-</section>
-
-<!-- ================= PAGE 2 ================= -->
-
-<section class="page page2">
-
-<h1>
-
-Our Beautiful Memories ❤️
-
-</h1>
-
-<p>
-
-Every picture reminds me
-
-how lucky I am to have you.
-
-</p>
-
-<div class="gallery">
-
-<div class="photo">
-
-<img src="assets/photo1.jpeg">
-
+<!-- SCENE 5 -->
+<div class="scene" id="s5">
+  <div class="ring">💍</div>
+  <h2>Will you marry me?</h2>
+  <button onclick="yes()">YES ❤️</button>
+  <button id="noBtn" onmouseover="runNo()">NO</button>
 </div>
 
-<div class="photo">
-
-<img src="assets/photo2.jpeg">
-
+<!-- SCENE 6 -->
+<div class="scene" id="s6">
+  <h1>Thank you ❤️</h1>
+  <p>Forever Yours</p>
 </div>
 
-<div class="photo">
-
-<img src="assets/photo3.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo4.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo5.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo6.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo7.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo8.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo9.jpeg">
-
-</div>
-
-<div class="photo">
-
-<img src="assets/photo10.jpeg">
-
-</div>
-
-</div>
-
-<div class="scroll-text">
-
-Swipe →
-
-</div>
-
-</section>
-
-<!-- ================= PAGE 3 ================= -->
-
-<section class="page page3">
-
-<h1>
-
-My Apology ❤️
-
-</h1>
-
-<div class="letter">
-
-<p>
-
-My Dearest Pikachuuuuuu,
-
-</p>
-
-<p>
-
-Every time I think about us,
-
-I realize how incredibly lucky I am.
-
-Yet I also realize I haven't always
-
-given you the time and attention
-
-you truly deserve.
-
-</p>
-
-<p>
-
-I know there were moments
-
-when you silently waited for me.
-
-Moments when I unintentionally
-
-hurt your feelings.
-
-For every one of those moments,
-
-I'm deeply sorry.
-
-</p>
-
-<p>
-
-You have always loved me with
-
-patience, kindness and your
-
-beautiful heart.
-
-Thank you for never giving up on us.
-
-</p>
-
-<p>
-
-I don't want to make excuses.
-
-I just want to promise you that I'll become a better man...
-
-Someone who understands you better,
-
-listens more,
-
-cares more,
-
-and loves you more every single day.
-
-</p>
-
-<p>
-
-You are my happiness.
-
-You are my peace.
-
-You are my home.
-
-You are the most beautiful blessing in my life.
-
-</p>
-
-<p>
-
-Thank you for loving me despite my imperfections.
-
-I love you more than words can ever describe.
-
-</p>
-
-<p class="signature">
-
-Forever Yours ❤️
-
-<br><br>
-
-<b>SOUMABHA</b>
-
-</p>
-
-</div>
-
-<div class="scroll-text">
-
-Keep Scrolling →
-
-</div>
-
-</section>
-
-<!-- ================= PAGE 4 ================= -->
-
-<section class="page page4">
-
-<div class="proposal">
-
-<h3>
-
-One Last Question...
-
-</h3>
-
-<h1>
-
-Pikachuuuuuu ❤️
-
-</h1>
-
-<h2>
-
-Would You Marry Me?
-
-</h2>
-
-<p>
-
-Will you be mine forever?
-
-Will you stay beside me
-
-through every happiness,
-
-every challenge,
-
-and every dream?
-
-</p>
-
-<div class="buttons">
-
-<button
-
-class="yes-btn"
-
-onclick="sayYes()">
-
-YES ❤️
-
-</button>
-
-<button
-
-id="noBtn"
-
-class="no-btn"
-
-onmouseover="moveButton()"
-
-onclick="moveButton()">
-
-NO 😅
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= PAGE 5 ================= -->
-
-<section class="page page5">
-
-<canvas id="fireworks"></canvas>
-
-<div class="final-message">
-
-<h1>
-
-Thank You
-
-My Dear ❤️
-
-</h1>
-
-<h2>
-
-You Just Made
-
-Me The Happiest Person Alive
-
-🥹❤️
-
-</h2>
-
-<h3>
-
-I Promise To Love You
-
-Forever
-
-</h3>
-
-<h1>
-
-I LOVE YOU
-
-PIKACHUUUUUU ❤️
-
-</h1>
-
-<p>
-
-Forever Yours,
-
-</p>
-
-<h2>
-
-SOUMABHA ❤️
-
-</h2>
-
-</div>
-
-</section>
-
-</div>
-
-<!-- Audio -->
-
-<audio
-
-id="bgMusic"
-
-loop>
-
-<source
-
-src="assets/music.mp3"
-
-type="audio/mpeg">
-
-</audio>
-
-<script src="script.js"></script>
+<script>
+let scene = 1;
+
+function go(n){
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  scene = n;
+}
+
+/* ---------- GIFT FLOW ---------- */
+function openGift(){
+  go(3);
+  startSlider();
+
+  setTimeout(()=>{
+    typeLetter();
+  },6000);
+}
+
+/* ---------- SLIDER ---------- */
+let i=0;
+function startSlider(){
+  setInterval(()=>{
+    let slides=document.querySelectorAll('.slide');
+    slides.forEach(s=>s.classList.remove('active'));
+    i=(i+1)%slides.length;
+    slides[i].classList.add('active');
+  },2500);
+}
+
+/* ---------- TYPE LETTER ---------- */
+const msg = `I'm sorry.
+
+I know I haven't always been perfect.
+
+But every mistake taught me one thing —
+I never want to lose you.
+
+I promise to love you better every day.`;
+
+function typeLetter(){
+  go(4);
+  let el=document.getElementById("letter");
+  el.innerHTML="";
+  let j=0;
+
+  let t=setInterval(()=>{
+    el.innerHTML += msg[j]==="\n"?"<br>":msg[j];
+    j++;
+    if(j>=msg.length){
+      clearInterval(t);
+      setTimeout(()=>go(5),3000);
+    }
+  },35);
+}
+
+/* ---------- NO BUTTON ESCAPE ---------- */
+function runNo(){
+  let b=document.getElementById("noBtn");
+  b.style.position="absolute";
+  b.style.top=Math.random()*200+"px";
+  b.style.left=Math.random()*200+"px";
+}
+
+/* ---------- YES ---------- */
+function yes(){
+  go(6);
+  heartRain();
+  burstFX();
+}
+
+/* ---------- HEART RAIN ---------- */
+function heartRain(){
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="90vh";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  },120);
+}
+
+/* ---------- CANVAS FX (CONFETTI + STARS) ---------- */
+const canvas=document.getElementById("fxCanvas");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<120;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2,
+    d:Math.random()*1+0.5
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="rgba(255,255,255,0.8)";
+
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+    p.y+=p.d;
+
+    if(p.y>canvas.height){
+      p.y=0;
+      p.x=Math.random()*canvas.width;
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ---------- BURST ---------- */
+function burstFX(){
+  setInterval(()=>{
+    let spark=document.createElement("div");
+    spark.innerHTML="✨";
+    spark.style.position="absolute";
+    spark.style.left=Math.random()*100+"vw";
+    spark.style.top=Math.random()*100+"vh";
+    spark.style.fontSize="25px";
+    spark.style.zIndex=10;
+    document.body.appendChild(spark);
+    setTimeout(()=>spark.remove(),1000);
+  },120);
+}
+</script>
 
 </body>
-
 </html>

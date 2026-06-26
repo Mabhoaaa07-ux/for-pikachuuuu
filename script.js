@@ -1,323 +1,140 @@
-// =============================
-// Romantic Website Script
-// Part 1
-// =============================
+let scene = 1;
 
-const giftBox = document.getElementById("giftBox");
-const welcome = document.getElementById("welcome");
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
-const heartContainer = document.getElementById("heart-container");
-const noBtn = document.getElementById("noBtn");
+function go(n){
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  scene = n;
+}
 
-// -----------------------------
-// Open Gift
-// -----------------------------
+/* FLOW */
+function openGift(){
+  go(3);
+  startSlider();
 
-giftBox.addEventListener("click", () => {
+  setTimeout(()=>{
+    typeLetter();
+  },6000);
+}
 
-    giftBox.classList.add("gift-open");
+/* SLIDER */
+let i=0;
+function startSlider(){
+  setInterval(()=>{
+    let slides=document.querySelectorAll('.slide');
+    slides.forEach(s=>s.classList.remove('active'));
+    i=(i+1)%slides.length;
+    slides[i].classList.add('active');
+  },2500);
+}
 
-    setTimeout(() => {
+/* LETTER */
+const msg = `I'm sorry.
 
-        welcome.classList.add("show");
+I know I haven't always been perfect.
 
-    }, 700);
+But every mistake taught me one thing —
+I never want to lose you.
 
-});
+I promise to love you better every day.`;
 
-// -----------------------------
-// Music Button
-// -----------------------------
+function typeLetter(){
+  go(4);
+  let el=document.getElementById("letter");
+  el.innerHTML="";
+  let j=0;
 
-let playing = false;
-
-musicBtn.addEventListener("click", () => {
-
-    if (!playing) {
-
-        music.play();
-
-        playing = true;
-
-        musicBtn.innerHTML = "⏸ Pause Music";
-
-    } else {
-
-        music.pause();
-
-        playing = false;
-
-        musicBtn.innerHTML = "🎵 Play Music";
-
+  let t=setInterval(()=>{
+    el.innerHTML += msg[j]==="\n"?"<br>":msg[j];
+    j++;
+    if(j>=msg.length){
+      clearInterval(t);
+      setTimeout(()=>go(5),3000);
     }
-
-});
-
-// -----------------------------
-// Floating Hearts
-// -----------------------------
-
-function createHeart() {
-
-    const heart = document.createElement("div");
-
-    heart.className = "heart";
-
-    heart.innerHTML = "❤️";
-
-    heart.style.left = Math.random() * 100 + "vw";
-
-    heart.style.fontSize = (18 + Math.random() * 25) + "px";
-
-    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-
-    heartContainer.appendChild(heart);
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, 8000);
-
+  },35);
 }
 
-setInterval(createHeart, 300);
-
-// -----------------------------
-// Funny NO Button
-// -----------------------------
-
-function moveButton() {
-
-    const x = Math.random() * 250 - 125;
-
-    const y = Math.random() * 150 - 75;
-
-    noBtn.style.transform =
-        `translate(${x}px,${y}px)`;
-
+/* NO ESCAPE BUTTON */
+function runNo(){
+  let b=document.getElementById("noBtn");
+  b.style.position="absolute";
+  b.style.top=Math.random()*200+"px";
+  b.style.left=Math.random()*200+"px";
 }
 
-// -----------------------------
-// YES Button
-// -----------------------------
-
-function sayYes() {
-
-    alert("Yayyyyy!! ❤️\nI Love You Pikachuuuuuu ❤️");
-
-    startFireworks();
-
-    setTimeout(() => {
-
-        document.querySelector(".page5").scrollIntoView({
-
-            behavior: "smooth"
-
-        });
-
-    }, 1000);
-
+/* YES ACTION */
+function yes(){
+  go(6);
+  heartRain();
+  burstFX();
 }
 
-// =============================
-// Part 2
-// Fireworks + Confetti
-// =============================
+/* HEART RAIN */
+function heartRain(){
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.innerHTML="❤️";
+    h.style.position="absolute";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top="90vh";
+    h.style.fontSize="18px";
+    h.style.animation="rise 4s linear forwards";
+    document.body.appendChild(h);
 
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
+    setTimeout(()=>h.remove(),4000);
+  },120);
+}
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+/* FX BURST */
+function burstFX(){
+  setInterval(()=>{
+    let s=document.createElement("div");
+    s.innerHTML="✨";
+    s.style.position="absolute";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    s.style.fontSize="22px";
+    document.body.appendChild(s);
 
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
+    setTimeout(()=>s.remove(),1000);
+  },150);
+}
 
-let particles = [];
+/* BACKGROUND PARTICLES (CANVAS) */
+const canvas=document.getElementById("fxCanvas");
+const ctx=canvas.getContext("2d");
 
-class Particle {
-    constructor(x, y, color) {
-        this.x = x;
-        this.y = y;
+canvas.width=innerWidth;
+canvas.height=innerHeight;
 
-        this.dx = (Math.random() - 0.5) * 8;
-        this.dy = (Math.random() - 0.5) * 8;
+let dots=[];
 
-        this.life = 100;
+for(let i=0;i<120;i++){
+  dots.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2,
+    d:Math.random()*1
+  });
+}
 
-        this.color = color;
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
 
-        this.size = Math.random() * 4 + 2;
+  dots.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+
+    p.y+=p.d;
+
+    if(p.y>canvas.height){
+      p.y=0;
+      p.x=Math.random()*canvas.width;
     }
+  });
 
-    update() {
-
-        this.x += this.dx;
-
-        this.y += this.dy;
-
-        this.dy += 0.03;
-
-        this.life--;
-
-    }
-
-    draw() {
-
-        ctx.beginPath();
-
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-
-        ctx.fillStyle = this.color;
-
-        ctx.fill();
-
-    }
-
+  requestAnimationFrame(animate);
 }
 
-function createFirework() {
-
-    let x = Math.random() * canvas.width;
-
-    let y = Math.random() * canvas.height * 0.5;
-
-    const colors = [
-
-        "#ff0055",
-
-        "#ffea00",
-
-        "#00e5ff",
-
-        "#ffffff",
-
-        "#ff66cc",
-
-        "#00ff88"
-
-    ];
-
-    for (let i = 0; i < 80; i++) {
-
-        particles.push(
-
-            new Particle(
-
-                x,
-
-                y,
-
-                colors[Math.floor(Math.random() * colors.length)]
-
-            )
-
-        );
-
-    }
-
-}
-
-function animateFireworks() {
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach((particle, index) => {
-
-        particle.update();
-
-        particle.draw();
-
-        if (particle.life <= 0) {
-
-            particles.splice(index, 1);
-
-        }
-
-    });
-
-    requestAnimationFrame(animateFireworks);
-
-}
-
-animateFireworks();
-
-function startFireworks() {
-
-    createFirework();
-
-    let interval = setInterval(createFirework, 700);
-
-    setTimeout(() => {
-
-        clearInterval(interval);
-
-    }, 10000);
-
-}
-
-// =============================
-// Extra Heart Burst
-// =============================
-
-function burstHearts() {
-
-    for (let i = 0; i < 40; i++) {
-
-        createHeart();
-
-    }
-
-}
-
-const yesButton = document.querySelector(".yes-btn");
-
-yesButton.addEventListener("click", () => {
-
-    burstHearts();
-
-});
-
-// =============================
-// Auto Scroll Support
-// =============================
-
-document.querySelectorAll(".page").forEach(page => {
-
-    page.addEventListener("wheel", function(e) {
-
-        e.preventDefault();
-
-        if (e.deltaY > 0) {
-
-            this.nextElementSibling?.scrollIntoView({
-
-                behavior: "smooth"
-
-            });
-
-        } else {
-
-            this.previousElementSibling?.scrollIntoView({
-
-                behavior: "smooth"
-
-            });
-
-        }
-
-    }, {
-
-        passive: false
-
-    });
-
-});
-
-// =============================
-// End
-// =============================
+animate();
