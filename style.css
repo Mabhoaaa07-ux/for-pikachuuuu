@@ -1,0 +1,765 @@
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:auto;
+    overflow-y:hidden;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#ff9acb,#ffdde1,#ffd6f6);
+}
+
+/* ===========================
+   HORIZONTAL PAGES
+=========================== */
+
+.container{
+    display:flex;
+    width:500vw;
+    height:100vh;
+    scroll-snap-type:x mandatory;
+}
+
+.page{
+    width:100vw;
+    height:100vh;
+    flex-shrink:0;
+    scroll-snap-align:start;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+/* ===========================
+   BACKGROUND
+=========================== */
+
+.background-stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(white 2px,transparent 2px),
+    radial-gradient(#ffffff80 1px,transparent 1px);
+    background-size:80px 80px;
+    animation:bgMove 40s linear infinite;
+    opacity:.35;
+    pointer-events:none;
+}
+
+@keyframes bgMove{
+
+from{
+background-position:0 0;
+}
+
+to{
+background-position:800px 800px;
+}
+
+}
+
+/* ===========================
+   MUSIC BUTTON
+=========================== */
+
+.music{
+position:fixed;
+top:20px;
+right:20px;
+z-index:999;
+}
+
+.music button{
+
+padding:12px 20px;
+
+border:none;
+
+border-radius:30px;
+
+background:#ff2d75;
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+transition:.3s;
+
+}
+
+.music button:hover{
+
+transform:scale(1.08);
+
+}
+
+/* ===========================
+   PAGE TITLES
+=========================== */
+
+.page h1{
+
+font-family:'Great Vibes',cursive;
+
+font-size:60px;
+
+color:#ff006e;
+
+margin-bottom:20px;
+
+}
+
+.page h2{
+
+font-size:34px;
+
+color:#fff;
+
+margin-bottom:20px;
+
+}
+
+.page h3{
+
+font-size:24px;
+
+color:white;
+
+letter-spacing:2px;
+
+margin-bottom:10px;
+
+}
+
+.small-title{
+
+font-size:20px;
+
+color:white;
+
+letter-spacing:3px;
+
+}
+
+.pink{
+
+color:#ff2d75;
+
+}
+
+/* ===========================
+   GIFT BOX
+=========================== */
+
+.gift-area{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+}
+
+.gift-box{
+
+position:relative;
+
+width:170px;
+
+height:170px;
+
+cursor:pointer;
+
+transition:.5s;
+
+}
+
+.gift-box:hover{
+
+transform:scale(1.08);
+
+}
+
+.gift-body{
+
+position:absolute;
+
+bottom:0;
+
+width:170px;
+
+height:120px;
+
+background:#ff006e;
+
+border-radius:8px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
+
+.gift-lid{
+
+position:absolute;
+
+top:0;
+
+width:170px;
+
+height:45px;
+
+background:#ff4f94;
+
+border-radius:8px;
+
+transition:.8s;
+
+transform-origin:left;
+
+}
+
+.gift-ribbon-v{
+
+position:absolute;
+
+left:76px;
+
+width:18px;
+
+height:170px;
+
+background:gold;
+
+}
+
+.gift-ribbon-h{
+
+position:absolute;
+
+top:48px;
+
+width:170px;
+
+height:18px;
+
+background:gold;
+
+}
+
+.gift-open .gift-lid{
+
+transform:rotate(-130deg);
+
+}
+
+#welcome{
+
+margin-top:40px;
+
+opacity:0;
+
+transition:1s;
+
+}
+
+#welcome.show{
+
+opacity:1;
+
+}
+
+#welcome h1{
+
+font-size:70px;
+
+}
+
+#welcome p{
+
+font-size:20px;
+
+color:white;
+
+max-width:650px;
+
+line-height:1.8;
+
+}
+
+/* ===========================
+   SCROLL TEXT
+=========================== */
+
+.scroll-text{
+
+position:absolute;
+
+bottom:30px;
+
+font-size:18px;
+
+color:white;
+
+animation:blink 1.2s infinite;
+
+}
+
+@keyframes blink{
+
+50%{
+
+opacity:.2;
+
+}
+
+}
+
+/* ===========================
+   PAGE 2 - PHOTO GALLERY
+=========================== */
+
+.page2{
+    background:linear-gradient(135deg,#ff8fb1,#ffc3d1,#ffe6eb);
+}
+
+.page2 p{
+    color:white;
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
+    width:90%;
+    max-width:1200px;
+}
+
+.photo{
+    overflow:hidden;
+    border-radius:20px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    transition:.4s;
+}
+
+.photo:hover{
+    transform:translateY(-10px) scale(1.05);
+}
+
+.photo img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    display:block;
+}
+
+/* ===========================
+   PAGE 3 - LETTER
+=========================== */
+
+.page3{
+    background:linear-gradient(135deg,#ffb3c6,#ffd6e0,#fff0f5);
+}
+
+.letter{
+    width:80%;
+    max-width:850px;
+    padding:40px;
+    border-radius:25px;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(12px);
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    text-align:left;
+}
+
+.letter p{
+    color:white;
+    font-size:20px;
+    line-height:2;
+    margin-bottom:18px;
+}
+
+.signature{
+    text-align:right;
+    color:#ffe600 !important;
+    font-size:26px !important;
+}
+
+/* ===========================
+   PAGE 4 - PROPOSAL
+=========================== */
+
+.page4{
+    background:linear-gradient(135deg,#ff6fa5,#ffb3d9,#ffe4ef);
+}
+
+.proposal{
+    width:80%;
+    max-width:700px;
+    padding:50px;
+    border-radius:30px;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(12px);
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.proposal p{
+    color:white;
+    font-size:22px;
+    line-height:1.8;
+    margin:30px 0;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:30px;
+}
+
+.yes-btn,
+.no-btn{
+
+    border:none;
+    padding:18px 45px;
+    font-size:22px;
+    border-radius:40px;
+    cursor:pointer;
+    transition:.35s;
+    font-weight:bold;
+}
+
+.yes-btn{
+
+    background:#00c853;
+    color:white;
+    box-shadow:0 10px 25px rgba(0,200,83,.35);
+}
+
+.yes-btn:hover{
+
+    transform:scale(1.1);
+}
+
+.no-btn{
+
+    background:#ff1744;
+    color:white;
+    position:relative;
+}
+
+.no-btn:hover{
+
+    transform:scale(1.05);
+}
+
+/* ===========================
+   GLASS EFFECT
+=========================== */
+
+.page2,
+.page3,
+.page4{
+
+    position:relative;
+}
+
+.page2::before,
+.page3::before,
+.page4::before{
+
+content:"";
+
+position:absolute;
+
+width:300px;
+
+height:300px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.15);
+
+top:40px;
+
+left:60px;
+
+filter:blur(50px);
+
+}
+
+.page2::after,
+.page3::after,
+.page4::after{
+
+content:"";
+
+position:absolute;
+
+width:250px;
+
+height:250px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.12);
+
+bottom:50px;
+
+right:70px;
+
+filter:blur(60px);
+
+}
+
+/* ===========================
+   PAGE 5 - FINAL
+=========================== */
+
+.page5{
+    background:linear-gradient(135deg,#ff006e,#ff4d8d,#ff99c8);
+    overflow:hidden;
+}
+
+.final-message{
+    position:relative;
+    z-index:5;
+}
+
+.final-message h1{
+    font-size:70px;
+    color:white;
+    text-shadow:0 0 20px rgba(255,255,255,.8);
+}
+
+.final-message h2{
+    color:#fff;
+    margin:20px 0;
+}
+
+.final-message h3{
+    color:#ffe600;
+    margin-top:30px;
+}
+
+/* ===========================
+   FIREWORKS
+=========================== */
+
+#fireworks{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+}
+
+/* ===========================
+   FLOATING HEARTS
+=========================== */
+
+#heart-container{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:9999;
+}
+
+.heart{
+
+    position:absolute;
+    color:#ff2d75;
+    font-size:24px;
+    animation:floatHeart linear forwards;
+}
+
+@keyframes floatHeart{
+
+0%{
+transform:translateY(0) scale(.5);
+opacity:0;
+}
+
+10%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-110vh) scale(1.6);
+opacity:0;
+}
+
+}
+
+/* ===========================
+   FADE ANIMATION
+=========================== */
+
+.hidden{
+    opacity:0;
+}
+
+.show{
+    opacity:1;
+    animation:fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* ===========================
+   GLOW EFFECT
+=========================== */
+
+button{
+
+transition:.3s;
+}
+
+button:hover{
+
+box-shadow:0 0 25px rgba(255,255,255,.7);
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+.page{
+
+padding:20px;
+
+}
+
+.page h1{
+
+font-size:42px;
+
+}
+
+.page h2{
+
+font-size:24px;
+
+}
+
+.gallery{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:12px;
+
+}
+
+.photo img{
+
+height:170px;
+
+}
+
+.letter{
+
+width:95%;
+padding:25px;
+
+}
+
+.letter p{
+
+font-size:17px;
+
+line-height:1.7;
+
+}
+
+.proposal{
+
+width:95%;
+padding:25px;
+
+}
+
+.proposal p{
+
+font-size:18px;
+
+}
+
+.buttons{
+
+flex-direction:column;
+gap:20px;
+
+}
+
+.yes-btn,
+.no-btn{
+
+width:220px;
+margin:auto;
+
+}
+
+.final-message h1{
+
+font-size:46px;
+
+}
+
+}
+
+/* ===========================
+   END
+=========================== */
