@@ -182,8 +182,8 @@ button:active{
 <!-- SCENE 1 -->
 <div class="scene active" id="s1">
   <div class="glass">
-    <div class="glow">Hey Pikachuuuu ❤️</div>
-    <p style="margin-top:10px;">Someone loves you more than words can explain...</p>
+    <div class="glow">Hey My Pikachuuuu ❤️</div>
+    <p style="margin-top:10px;">Someone loves you so much that even words will fall short to explain...</p>
     <button onclick="go(2)">Open Gift 🎁</button>
   </div>
 </div>
@@ -197,16 +197,16 @@ button:active{
 <!-- SCENE 3 -->
 <div class="scene" id="s3">
   <div class="slider">
-    <div class="slide active" style="background-image:url('assets/photo.1.jpeg')"></div>   
-    <div class="slide" style="background-image:url('assets/photo.2.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.3.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.4.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.5.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.6.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.7.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.8.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.9.jpeg')"></div>
-    <div class="slide" style="background-image:url('assets/photo.10.jpeg')"></div>
+    <div class="slide active" style="background-image:url('assets/photo1.jpeg')"></div>   
+    <div class="slide" style="background-image:url('assets/photo2.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo3.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo4.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo5.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo6.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo7.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo8.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo9.jpeg')"></div>
+    <div class="slide" style="background-image:url('assets/photo10.jpeg')"></div>
     
   </div>
 </div>
@@ -226,8 +226,8 @@ button:active{
 
 <!-- SCENE 6 -->
 <div class="scene" id="s6">
-  <h1>Thank you ❤️</h1>
-  <p>Forever Yours</p>
+  <h1>Thank you Pikachhuuuuuu ❤️</h1>
+  <p>I will be yours forever</p>
 </div>
 
 <script>
@@ -257,18 +257,18 @@ function startSlider(){
     slides.forEach(s=>s.classList.remove('active'));
     i=(i+1)%slides.length;
     slides[i].classList.add('active');
-  },2500);
+  },600);
 }
 
 /* ---------- TYPE LETTER ---------- */
-const msg = `I'm sorry.
+const msg = `I'm soo sooo sooooo sorry my dear.
 
-I know I haven't always been perfect.
+I know I haven't always been perfect and broken your heart many times but you still kept me with you for which i am totally grateful to you.
 
-But every mistake taught me one thing —
-I never want to lose you.
+I have done plenty of mistakes which are sometimes unforgivable. But every mistake taught me one thing —
+Instead of arguing I should repent for all those and apologize from my heart. Becuase I never want to lose you.
 
-I promise to love you better every day.`;
+Please forgive me for the last time. I swear I will continue to love you better every day.`;
 
 function typeLetter(){
   go(4);
